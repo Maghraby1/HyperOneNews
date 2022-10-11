@@ -61,7 +61,9 @@ class AppModule {
         app,
         MyDatabase::class.java,
         "NewsDb"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Singleton
     @Provides

@@ -20,10 +20,12 @@ class LoginViewModel @Inject constructor(private val dao: dao) : ViewModel() {
     fun login(username: String, password: String){
         viewModelScope.launch {
             dao.getUsers(username, password).let {
-                println(it.value)
-                _user.postValue(it.value)
+                if(it.size<=0) {
+                    _user.postValue(null)
+                    return@launch
+                }
+                _user.postValue(it.get(0))
             }
-
         }
     }
 

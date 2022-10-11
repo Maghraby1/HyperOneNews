@@ -27,8 +27,7 @@
             android:id="@+id/usernameEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            tools:Text="jsjsj"/>
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -38,7 +37,7 @@
         android:layout_height="wrap_content"
         android:padding="18dp"
         android:hint="@string/password"
-        app:startIconDrawable="@drawable/ic_username_24"
+        app:startIconDrawable="@drawable/ic_lock"
         app:layout_constraintTop_toBottomOf="@id/usernameTIL"
         >
 
@@ -46,18 +45,67 @@
             android:id="@+id/passwordEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            tools:Text="jsjsj"/>
+            android:inputType="textPassword"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/login_btn"
         android:elevation="8dp"
         android:elegantTextHeight="true"
         app:layout_constraintTop_toBottomOf="@id/passwordTIL"
+        app:layout_constraintStart_toStartOf="@id/registerBtn"
+        app:layout_constraintEnd_toEndOf="@id/registerBtn"/>
+
+    <RelativeLayout
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/registerBtn"
+        app:layout_constraintEnd_toEndOf="@id/registerBtn"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn">
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/dividerTxt"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/dividerTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:text="@string/or_divider"
+            />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="2dp"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/dividerTxt"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/darker_gray"/>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_btn"
+        android:elevation="8dp"
+        android:elegantTextHeight="true"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

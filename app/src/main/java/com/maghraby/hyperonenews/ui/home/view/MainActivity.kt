@@ -1,5 +1,9 @@
 package com.maghraby.hyperonenews.ui.home.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -7,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maghraby.hyperonenews.R
+import com.maghraby.hyperonenews.data.database.entity.NewsEntity
 import com.maghraby.hyperonenews.data.models.NewModel
 import com.maghraby.hyperonenews.ui.home.adapter.NewsAdapter
 import com.maghraby.hyperonenews.ui.home.viewmodel.MainViewModel
@@ -20,7 +25,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel.getNews()
+        if(isNetworkConnected()){
+            viewModel.getNews()
+        }else{
+            viewModel.getNewsOffline()
+        }
         setupUI()
         loadData()
     }
@@ -36,11 +45,42 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadData() {
         viewModel.news.observe(this){
-            renderNews(it.articles)
+            renderNews(it)
         }
     }
-    private fun renderNews(news: List<NewModel>){
+    private fun renderNews(news: List<NewsEntity>){
         adapter.addNews(news)
         adapter.notifyDataSetChanged()
+    }
+
+        private fun isNetworkConnected(): Boolean {
+        var result = false
+        val connectivityManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork ?: return false
+            val activeNetwork =
+                connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+            result = when {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            connectivityManager.run {
+                connectivityManager.activeNetworkInfo?.run {
+                    result = when (type) {
+                        ConnectivityManager.TYPE_WIFI -> true
+                        ConnectivityManager.TYPE_MOBILE -> true
+                        ConnectivityManager.TYPE_ETHERNET -> true
+                        else -> false
+                    }
+
+                }
+            }
+        }
+
+        return result
     }
 }

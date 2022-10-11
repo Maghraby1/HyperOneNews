@@ -7,14 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.maghraby.hyperonenews.R
+import com.maghraby.hyperonenews.data.database.entity.NewsEntity
 import com.maghraby.hyperonenews.data.models.NewModel
 import javax.inject.Inject
 
-class NewsAdapter @Inject constructor( private val news : ArrayList<NewModel>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
+class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(index: NewModel) {
+        fun bind(index: NewsEntity) {
 
             Glide.with(itemView.context)
                 .load(index.urlToImage).dontAnimate()
@@ -36,7 +37,7 @@ class NewsAdapter @Inject constructor( private val news : ArrayList<NewModel>) :
         return news.size
     }
 
-    fun addNews(list: List<NewModel>){
+    fun addNews(list: List<NewsEntity>){
         news.clear()
         news.addAll(list)
     }
