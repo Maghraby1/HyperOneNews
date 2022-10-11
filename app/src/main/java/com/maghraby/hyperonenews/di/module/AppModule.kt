@@ -2,14 +2,18 @@ package com.maghraby.hyperonenews.di.module
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.room.Room
 import com.maghraby.hyperonenews.data.api.ApiHelper
 import com.maghraby.hyperonenews.data.api.ApiHelperImp
 import com.maghraby.hyperonenews.data.api.ApiService
+import com.maghraby.hyperonenews.data.database.MyDatabase
+import com.maghraby.hyperonenews.data.database.dao.dao
 import com.maghraby.hyperonenews.utils.Constants.BASE_URL
 //import com.maghraby.hyperonenews.utils.NetworkHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
@@ -22,30 +26,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-//    private var mContext: Context? = null
-//
-//    @SuppressLint("NotConstructor")
-//    fun AppModule(mContext: Context?) {
-//        this.mContext = mContext
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideApplication(): Context? {
-//        return mContext
-//    }
-
-//    @Provides
-//    @Singleton
-//    fun provideNetworkHelper(context: Context) = NetworkHelper(context)
-//
     @Provides
     @Singleton
     fun provideOkHttpClient() = OkHttpClient
         .Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
-//
+
     @Provides
     @Singleton
     fun provideRetrofit(
@@ -56,7 +43,7 @@ class AppModule {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
-//
+
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService =
@@ -66,4 +53,17 @@ class AppModule {
     @Singleton
     fun provideApiHelper(apiHelper: ApiHelperImp): ApiHelper = apiHelper
 
+    @Singleton
+    @Provides
+    fun provideYourDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        MyDatabase::class.java,
+        "NewsDb"
+    ).build()
+
+    @Singleton
+    @Provides
+    fun provideYourDao(db: MyDatabase) = db.dao
 }

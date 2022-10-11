@@ -14,30 +14,23 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val mainRepository: MainRepository,
-// private val networkHelper: NetworkHelper
+class MainViewModel @Inject constructor(private val mainRepository: MainRepository
  ) : ViewModel(){
     private val _news = MutableLiveData<NewsResponseModel>()
     val news: LiveData<NewsResponseModel>
         get() = _news
 
     fun getNews(){
-
-
         viewModelScope.launch {
-//            if(networkHelper.isNetworkConnected()) {
                 mainRepository.getNews().let {
                     handleNewsReponse(it)
                 }
-//            }
         }
-
     }
 
     private fun handleNewsReponse(it: Response<NewsResponseModel>) {
         it.body()?.let {
             _news.postValue(it)
         }
-
     }
 }
