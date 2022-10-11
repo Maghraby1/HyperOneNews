@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     fun getNewsOffline() {
         viewModelScope.launch {
             dao.getNews().let {
-                _news.postValue(it.value)
+                _news.postValue(it)
             }
         }
     }
@@ -58,15 +58,12 @@ class MainViewModel @Inject constructor(
                     sourceName = it.source.name
                 )
                 newsList.add(new)
+                viewModelScope.launch {
+                    print(dao.insertNews(new))
+                }
             }
 
             _news.postValue(newsList)
-        }
-        viewModelScope.launch {
-            news.value?.forEach {
-                dao.insertNews(it)
-            }
-
         }
     }
 

@@ -17,9 +17,8 @@ class RegisterViewModel @Inject constructor(private val dao: dao) : ViewModel(){
     fun addUser(userEntity: UserEntity){
         viewModelScope.launch {
             dao.registerUser(userEntity).let {
-//                print(it)
-//                println(it)
-                if (it!=null){
+
+                if (it>0){
                     isSuccess.postValue(true)
                 }else{
                     isSuccess.postValue(false)

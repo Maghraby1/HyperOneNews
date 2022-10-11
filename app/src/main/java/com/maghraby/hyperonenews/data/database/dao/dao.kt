@@ -20,8 +20,8 @@ interface dao {
     fun getUsers(): LiveData<List<UserEntity>>
 
     @Query("SELECT * FROM News")
-    fun getNews(): LiveData<List<NewsEntity>>
+    suspend fun getNews(): List<NewsEntity>
 
     @Insert
-    suspend fun insertNews( news: NewsEntity)
+    suspend fun insertNews( news: NewsEntity) : Long
 }
