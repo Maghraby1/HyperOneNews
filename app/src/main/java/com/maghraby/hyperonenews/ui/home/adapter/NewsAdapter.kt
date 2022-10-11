@@ -83,7 +83,8 @@ class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(news[position])
+        holder.bind(viewModel.news.value?.get(position)!!)
+
         holder.itemView.setOnClickListener {
             viewModel.myBool = !viewModel.myBool
         }
