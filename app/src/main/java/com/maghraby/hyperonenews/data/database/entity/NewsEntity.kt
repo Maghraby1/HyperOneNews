@@ -15,5 +15,6 @@ data class NewsEntity (
     val publishedAt: String?="",
     val content: String?="",
     val sourceId: String? = "",
-    val sourceName: String?=""
+    val sourceName: String?="",
+    var isExpanded: Boolean = false
 )
