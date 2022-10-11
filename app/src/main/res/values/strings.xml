@@ -1,6 +1,23 @@
 <resources>
     <string name="app_name">HyperOneNews</string>
+<!--    labels-->
     <string name="username">Username</string>
+    <string name="name">Name</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="login_btn">Login</string>
+    <string name="signup_btn">Signup</string>
+    <string name="register_btn">Register</string>
+    <string name="or_divider">OR</string>
+    <string name="register_label">REGISTER</string>
+<!--  errors  -->
+<!--    Registration errors-->
+    <string name="register_name_error">Name cannot be empty</string>
+    <string name="register_username_error">Username cannot be empty</string>
+    <string name="register_password_error">Password or Confirm Password cannot be empty</string>
+    <string name="register_password_confirmation_error">Password and Confirm Password do not match</string>
+    <string name="register_error">Registration failed</string>
+
+<!--   Login errors -->
+    <string name="login_error">Your username or password maybe wrong</string>
 </resources>
