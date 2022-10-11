@@ -7,9 +7,14 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="login_btn">Login</string>
     <string name="signup_btn">Signup</string>
+    <string name="keep_logged">Keep me logged in</string>
     <string name="register_btn">Register</string>
     <string name="or_divider">OR</string>
     <string name="register_label">REGISTER</string>
+    <string name="logout">Logout</string>
+    <string name="logout_message">Before exiting, Do you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 <!--  errors  -->
 <!--    Registration errors-->
     <string name="register_name_error">Name cannot be empty</string>

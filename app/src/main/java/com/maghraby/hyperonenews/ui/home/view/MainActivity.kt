@@ -1,6 +1,7 @@
 package com.maghraby.hyperonenews.ui.home.view
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maghraby.hyperonenews.R
@@ -18,6 +20,8 @@ import com.maghraby.hyperonenews.data.models.Source
 import com.maghraby.hyperonenews.ui.home.adapter.NewsAdapter
 import com.maghraby.hyperonenews.ui.home.adapter.SourcesAdapter
 import com.maghraby.hyperonenews.ui.home.viewmodel.MainViewModel
+import com.maghraby.hyperonenews.utils.confirmDialog
+import com.maghraby.hyperonenews.utils.disableLogIn
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,9 +31,11 @@ class MainActivity : AppCompatActivity() {
     private val adapter : NewsAdapter by lazy { NewsAdapter(arrayListOf()) }
     private val sourcesAdapter : SourcesAdapter by lazy { SourcesAdapter(arrayListOf()) }
     private val viewModel : MainViewModel by viewModels()
+    lateinit var sharedPreferences : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         if(isNetworkConnected()){
             viewModel.getNews()
         }else{
@@ -101,4 +107,21 @@ class MainActivity : AppCompatActivity() {
 
         return result
     }
+
+    override fun onBackPressed() {
+        confirmDialog(
+            this,
+            getString(R.string.logout),
+            getString(R.string.logout_message),
+            getString(R.string.yes),
+            getString(R.string.no),
+            {
+                disableLogIn(sharedPreferences)
+                finishAffinity()
+            },{
+                finishAffinity()
+            }
+        )
+    }
+
 }

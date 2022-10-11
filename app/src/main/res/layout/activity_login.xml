@@ -59,6 +59,14 @@
         app:layout_constraintTop_toBottomOf="@id/passwordTIL"
         app:layout_constraintStart_toStartOf="@id/registerBtn"
         app:layout_constraintEnd_toEndOf="@id/registerBtn"/>
+    <CheckBox
+        android:id="@+id/loginCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/keep_logged"/>
 
     <RelativeLayout
         android:id="@+id/divider"
@@ -67,16 +75,15 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@id/registerBtn"
         app:layout_constraintEnd_toEndOf="@id/registerBtn"
-        app:layout_constraintTop_toBottomOf="@id/loginBtn">
-
+        app:layout_constraintTop_toBottomOf="@id/loginCB">
         <View
             android:layout_width="20dp"
             android:layout_height="2dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/dividerTxt"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/darker_gray"/>
+            android:layout_toStartOf="@id/dividerTxt"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/dividerTxt"
