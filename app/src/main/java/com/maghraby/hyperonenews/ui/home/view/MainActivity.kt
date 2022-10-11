@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var newsRv: RecyclerView
     private lateinit var sourcesRv: RecyclerView
-    private val adapter : NewsAdapter by lazy { NewsAdapter(arrayListOf()) }
+    private val adapter : NewsAdapter by lazy { NewsAdapter(arrayListOf(), viewModel) }
     private val sourcesAdapter : SourcesAdapter by lazy { SourcesAdapter(arrayListOf()) }
     private val viewModel : MainViewModel by viewModels()
     lateinit var sharedPreferences : SharedPreferences
@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadData() {
         viewModel.news.observe(this){
-
             renderNews(it?: arrayListOf())
         }
     }

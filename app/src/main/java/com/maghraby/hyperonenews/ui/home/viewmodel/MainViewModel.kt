@@ -21,6 +21,7 @@ class MainViewModel @Inject constructor(
     private val dao: dao
 ) : ViewModel() {
     private val _news = MutableLiveData<List<NewsEntity>>()
+    var myBool = false
     val news: LiveData<List<NewsEntity>>
         get() = _news
 

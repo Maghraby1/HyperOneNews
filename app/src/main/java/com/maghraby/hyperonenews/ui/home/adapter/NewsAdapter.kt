@@ -16,9 +16,11 @@ import com.bumptech.glide.Glide
 import com.maghraby.hyperonenews.R
 import com.maghraby.hyperonenews.data.database.entity.NewsEntity
 import com.maghraby.hyperonenews.data.models.NewModel
+import com.maghraby.hyperonenews.ui.home.viewmodel.MainViewModel
 import javax.inject.Inject
 
-class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
+class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>,
+ private val viewModel: MainViewModel) : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -71,6 +73,7 @@ class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>)
                 index.isExpanded = !index.isExpanded
                 toggleVisibility(itemView.findViewById(R.id.moreRL),index.isExpanded)
                 rotate( itemView.findViewById(R.id.moreButton),if(index.isExpanded) 180f else 0f)
+
             }
         }
     }
@@ -81,6 +84,9 @@ class NewsAdapter @Inject constructor( private val news : ArrayList<NewsEntity>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(news[position])
+        holder.itemView.setOnClickListener {
+            viewModel.myBool = !viewModel.myBool
+        }
     }
 
     override fun getItemCount(): Int {
